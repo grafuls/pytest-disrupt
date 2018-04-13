@@ -20,7 +20,8 @@ setup(
     maintainer_email='grafuls@redhat.com',
     license='BSD-3',
     url='https://github.com/grafuls/pytest-disrupt',
-    description='A pytest plugin for generating chaos and disruption during test execution following chaos engineering guidelines.',
+    description='A pytest plugin for generating chaos and disruption during '
+        'test execution following chaos engineering guidelines.',
     long_description=read('README.rst'),
     py_modules=['pytest_disrupt'],
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
