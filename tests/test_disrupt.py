@@ -1,64 +1,37 @@
 # -*- coding: utf-8 -*-
-
-
-def test_bar_fixture(testdir):
-    """Make sure that pytest accepts our fixture."""
-
-    # create a temporary pytest test module
-    testdir.makepyfile("""
-        def test_sth(bar):
-            assert bar == "europython2017"
-    """)
-
-    # run pytest with the following cmd args
-    result = testdir.runpytest(
-        '--foo=europython2017',
-        '-v'
-    )
-
-    # fnmatch_lines does an assertion internally
-    result.stdout.fnmatch_lines([
-        '*::test_sth PASSED*',
-    ])
-
-    # make sure that that we get a '0' exit code for the testsuite
-    assert result.ret == 0
+import pytest
 
 
 def test_help_message(testdir):
     result = testdir.runpytest(
-        '--help',
+        '--markers',
     )
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
-        'disrupt:',
-        '*--foo=DEST_FOO*Set the value for the fixture "bar".',
+        '@pytest.mark.disrupt*'
     ])
 
 
-def test_hello_ini_setting(testdir):
-    testdir.makeini("""
-        [pytest]
-        HELLO = world
-    """)
-
+def test_disrupt_marker(testdir):
+    # create a temporary pytest test module
     testdir.makepyfile("""
         import pytest
 
-        @pytest.fixture
-        def hello(request):
-            return request.config.getini('HELLO')
-
-        def test_hello_world(hello):
-            assert hello == 'world'
+        @pytest.mark.disrupt('reboot','hostname')
+        def test_disrupt_mark():
+            assert True
     """)
 
     result = testdir.runpytest('-v')
 
     # fnmatch_lines does an assertion internally
     result.stdout.fnmatch_lines([
-        '*::test_hello_world PASSED*',
+        '*test_disrupt_marker.py::test_disrupt_mark PASSED*',
     ])
 
-    # make sure that that we get a '0' exit code for the testsuite
     assert result.ret == 0
+
+
+@pytest.mark.disrupt('reboot', 'hostname')
+def test_real_disrupt_marker():
+    assert True
