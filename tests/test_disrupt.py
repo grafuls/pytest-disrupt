@@ -7,12 +7,12 @@ def test_bar_fixture(testdir):
     # create a temporary pytest test module
     testdir.makepyfile("""
         def test_sth(bar):
-            assert bar == "europython2015"
+            assert bar == "europython2017"
     """)
 
     # run pytest with the following cmd args
     result = testdir.runpytest(
-        '--foo=europython2015',
+        '--foo=europython2017',
         '-v'
     )
 
