@@ -1,0 +1,10 @@
+site_name: pytest-disrupt
+site_description: A pytest plugin for generating chaos and disruption during test execution following chaos engineering guidelines.
+site_author: Gonzalo Rafuls
+
+theme: readthedocs
+
+repo_url: https://github.com/grafuls/pytest-disrupt
+
+pages:
+- Home: index.md
